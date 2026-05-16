@@ -9,18 +9,17 @@ return {
     config = function()
       vim.cmd [[
       " Show diagnostics in popup on CursorHold
-      -- autocmd CursorHold * silent call CocActionAsync('diagnosticHover')
+      " autocmd CursorHold * silent call CocActionAsync('diagnosticHover')
 
       " Keybind for hover like `gh`
       nmap ge :call CocActionAsync('doHover')<CR>
 
-      --[[
-      " Useful navigation mappings
-      nmap <silent> gd <Plug>(coc-definition)
-      nmap <silent> gi <Plug>(coc-implementation)
-      nmap <silent> gr <Plug>(coc-references)
-      nmap <silent> [g <Plug>(coc-diagnostic-prev)
-      nmap <silent> ]g <Plug>(coc-diagnostic-next)
+      " Useful navigation mappings (disabled)
+      " nmap <silent> gd <Plug>(coc-definition)
+      " nmap <silent> gi <Plug>(coc-implementation)
+      " nmap <silent> gr <Plug>(coc-references)
+      " nmap <silent> [g <Plug>(coc-diagnostic-prev)
+      " nmap <silent> ]g <Plug>(coc-diagnostic-next)
     ]]
     end,
   },
@@ -166,7 +165,21 @@ return {
       }
     end,
   },
-  -- These are some examples, uncomment them if you want to see them work!
+  -- Override NvChad's treesitter to use main branch, compatible with Neovim 0.12
+  {
+    "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    build = ":TSUpdate",
+    lazy = false,
+    config = function()
+      require("nvim-treesitter").setup {
+        ensure_install = { "lua", "luadoc", "printf", "vim", "vimdoc" },
+        highlight = { enable = true },
+        indent = { enable = true },
+      }
+    end,
+  },
+
   {
     "neovim/nvim-lspconfig",
     config = function()
