@@ -1,27 +1,16 @@
-local Path = require "plenary.path"
-
 return {
+  -- Pin to last version supporting Neovim 0.10; disable treesitter previewer
+  -- (ft_to_lang was removed in 0.10, replaced by treesitter.language.get_lang)
   {
-    "neoclide/coc.nvim",
-    branch = "release",
-    build = "npm ci",
-    event = { "BufReadPre", "BufNewFile" },
-    config = function()
-      vim.cmd [[
-      " Show diagnostics in popup on CursorHold
-      " autocmd CursorHold * silent call CocActionAsync('diagnosticHover')
-
-      " Keybind for hover like `gh`
-      nmap ge :call CocActionAsync('doHover')<CR>
-
-      " Useful navigation mappings (disabled)
-      " nmap <silent> gd <Plug>(coc-definition)
-      " nmap <silent> gi <Plug>(coc-implementation)
-      " nmap <silent> gr <Plug>(coc-references)
-      " nmap <silent> [g <Plug>(coc-diagnostic-prev)
-      " nmap <silent> ]g <Plug>(coc-diagnostic-next)
-    ]]
-    end,
+    "nvim-telescope/telescope.nvim",
+    tag = "0.1.8",
+    opts = {
+      defaults = {
+        preview = {
+          treesitter = false,
+        },
+      },
+    },
   },
   {
     "jake-stewart/multicursor.nvim",
@@ -148,40 +137,18 @@ return {
     config = function()
       require("auto-session").setup {
         log_level = "error",
-        auto_session_enable_last_session = false,
-        auto_session_enabled = true,
-        auto_save_enabled = true,
-        auto_restore_enabled = true,
-        session_lens = {
-          load_on_setup = false,
-        },
-        cwd_change_handling = {
-          restore_upcoming_session = true,
-          pre_cwd_changed_hook = nil,
-          post_cwd_changed_hook = function()
-            -- vim.cmd "NvimTreeToggle" -- Optional: auto open file tree
-          end,
-        },
-      }
-    end,
-  },
-  -- Override NvChad's treesitter to use main branch, compatible with Neovim 0.12
-  {
-    "nvim-treesitter/nvim-treesitter",
-    branch = "main",
-    build = ":TSUpdate",
-    lazy = false,
-    config = function()
-      require("nvim-treesitter").setup {
-        ensure_install = { "lua", "luadoc", "printf", "vim", "vimdoc" },
-        highlight = { enable = true },
-        indent = { enable = true },
+        enabled = true,
+        auto_save = true,
+        auto_restore = true,
+        auto_create = true,
+        cwd_change_handling = false,
       }
     end,
   },
 
   {
     "neovim/nvim-lspconfig",
+    lazy = false,
     config = function()
       require "configs.lspconfig"
     end,

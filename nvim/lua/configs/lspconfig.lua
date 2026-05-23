@@ -1,4 +1,6 @@
-require("nvchad.configs.lspconfig").defaults()
+local nvlsp = require "nvchad.configs.lspconfig"
+
+nvlsp.defaults()
 
 vim.lsp.config("gopls", {
   cmd = { "gopls" },
@@ -15,6 +17,7 @@ vim.lsp.config("gopls", {
     },
   },
 })
+vim.lsp.enable "gopls"
 
 vim.lsp.config("typos_lsp", {
   cmd_env = { RUST_LOG = "error" },
@@ -23,14 +26,16 @@ vim.lsp.config("typos_lsp", {
     diagnosticSeverity = "Hint",
   },
 })
+vim.lsp.enable "typos_lsp"
 
 vim.lsp.config("ts_ls", {
   filetypes = { "typescript", "typescriptreact", "typescript.tsx", "javascript", "javascriptreact" },
   root_markers = { "package.json", "tsconfig.json", "jsconfig.json", ".git" },
 })
+vim.lsp.enable "ts_ls"
 
 vim.lsp.config("omnisharp", {
-  cmd = { "dotnet", "/Users/anweshbudhathoki/.local/share/nvim/mason/packages/omnisharp/OmniSharp.dll" },
+  cmd = { "dotnet", vim.fn.stdpath "data" .. "/mason/packages/omnisharp/OmniSharp.dll" },
   filetypes = { "cs", "vb" },
   root_markers = { "*.sln", "*.csproj", ".git" },
   settings = {
@@ -43,5 +48,13 @@ vim.lsp.config("omnisharp", {
     analyze_open_documents_only = false,
   },
 })
+vim.lsp.enable "omnisharp"
 
-vim.lsp.enable { "html", "cssls", "gopls", "typos_lsp", "ts_ls", "omnisharp" }
+vim.lsp.enable "html"
+vim.lsp.enable "cssls"
+
+vim.lsp.config("pylsp", {
+  filetypes = { "python" },
+  root_markers = { "pyproject.toml", "setup.py", "setup.cfg", "requirements.txt", ".git" },
+})
+vim.lsp.enable "pylsp"

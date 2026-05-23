@@ -14,9 +14,9 @@ vim.api.nvim_create_autocmd("VimEnter", {
       vim.cmd.cd(arg)
       -- vim.cmd "NvimTreeFocus"
     end
-    if vim.fn.argc() == 0 and vim.v.this_session == '' then
+    if vim.fn.argc() == 0 and vim.v.this_session == "" then
       -- Only open NvimTree if no session is being restored
-      require("nvim-tree.api").tree.open({ focus = false })
+      require("nvim-tree.api").tree.open { focus = false }
     end
   end,
 })
@@ -25,7 +25,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 vim.api.nvim_create_autocmd("User", {
   pattern = "SessionLoadPost",
   callback = function()
-    require("nvim-tree.api").tree.open({ focus = false })
+    require("nvim-tree.api").tree.open { focus = false }
   end,
 })
 
@@ -38,7 +38,6 @@ vim.api.nvim_create_autocmd("VimEnter", {
 
 -- In your config
 -- vim.o.statusline = "%f %h%m%r%=%{get(b:,'gitblame_summary','')} %= %l,%c"
-
 
 -- local o = vim.o
 -- o.cursorlineopt ='both' -- to enable cursorline!
