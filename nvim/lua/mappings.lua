@@ -55,12 +55,6 @@ map("n", "<leader>tD", builtin.lsp_type_definitions, { desc = "Telescope: LSP Ty
 map("n", "<leader>ti", builtin.lsp_implementations, { desc = "Telescope: LSP Implementations" })
 map("n", "<leader>tr", builtin.lsp_references, { desc = "Telescope: LSP References" })
 
---[[
-map('i', '<C-l>', function ()
-  vim.fn.feedkeys(vim.fn['copilot#Accept'](), '')
-end, { desc = 'Copilot Accept', noremap = true, silent = true })
-]]
-
 vim.keymap.set("n", "<F5>", function()
   require("dap").continue()
 end)
@@ -72,4 +66,3 @@ end)
 vim.keymap.set({ "n", "v" }, "<D-/>", "gcc", { noremap = false, silent = true })
 vim.keymap.set({ "n", "v" }, "<D-/>", "gc", { noremap = false, silent = true })
 
-vim.keymap.set("v", "<leader>cc", ":<C-u>CopilotChatOpen<CR>", { silent = true })
